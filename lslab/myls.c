@@ -72,21 +72,21 @@ void file_info (char* path, struct dirent* ent){
 	printf((S.st_mode & S_IWOTH)?"w":"-");	//Write permission, others.
 	printf((S.st_mode & S_IXOTH)?"x":"-");	//Execute/search permission, others.
 
-	printf("  %lu", S.st_nlink);  		//Number of hardlinks to file.
+	printf(" %lu", S.st_nlink);  		//Number of hardlinks to file.
 
 	struct passwd* user = getpwuid(S.st_uid);
-	printf("  %4s", user->pw_name);		//Name of owner.	
+	printf(" %-2s",(user!=0) ?  user->pw_name : " ");		//Name of owner.	
 	
 	struct group* grp = getgrgid(S.st_gid);
-	printf("  %6s", grp->gr_name);		//Name of group.
+	printf(" %-2s", grp->gr_name);		//Name of group.
 
-	printf("  %6d",(int)S.st_size);		//Size of data.
+	printf(" %6u",(int)S.st_size);		//Size of data.
 
 	struct tm* buff_time;
 	time_t time = S.st_ctime;
 	buff_time = localtime (&time);
 	printf ("  %6s", mon[buff_time->tm_mon]);//Month
-	printf (" %02d", buff_time->tm_mday);	 //Dayi
+	printf (" %2d", buff_time->tm_mday);	 //Dayi
 	printf (" %02d:%02d  ", buff_time->tm_hour, buff_time->tm_min); //Hours and minutes
 	
 
@@ -123,6 +123,10 @@ int main (int argc, char** argv){
 	//printf ("%s\n", path);
 
 	DIR* dir = opendir(path);
+	if (dir==NULL) { 
+		printf ("No such file or directory\n"); 
+		return 1;
+	};
 	struct dirent* ent = NULL;
 	int opt;
 	int i = 1;
