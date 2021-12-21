@@ -36,8 +36,8 @@ int main (){
 	while (1){
 		rcv.time = time(NULL);
 		rcv.pid = getpid();
-		printf("Time of receiver: %s\nPID of receiver: %d\n ", ctime(&(rcv.time)), rcv.pid);
-		printf("Sended messege: \nTime of sender: %s\nPID of sender: %d\n ", ctime(&(msg->time)), msg->pid);
+		printf("Time of receiver: %sPID of receiver: %d\n ", ctime(&(rcv.time)), rcv.pid);
+		printf("Sended messege: \nTime of sender: %sPID of sender: %d\n\n ", ctime(&(msg->time)), msg->pid);
 		sleep(2);
 	}
 	shmdt(msg);

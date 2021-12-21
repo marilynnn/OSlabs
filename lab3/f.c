@@ -25,7 +25,7 @@ int main (){
 		return -1;
 	}
 
-	int shmid = shmget(key, sizeof(struct messege), IPC_EXCL|IPC_CREAT|0666);// создаем участок разделяемой памяти
+	int shmid = shmget(key, sizeof(struct messege), IPC_CREAT|0666);// создаем участок разделяемой памяти
 	if (shmid == -1){
 		perror("shmget error");
 		return -1;
